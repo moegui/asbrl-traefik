@@ -1,0 +1,7 @@
+---
+default_user: 'ubuntu'
+IMAGE: 'traefik'
+BUILD: 'v2.3.1'
+DOCKER_EXPOSED_BY_DEFAULT: true
+DOCKER_NETWORK: 'network'
+API_INSECURE: true
