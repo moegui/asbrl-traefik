@@ -25,3 +25,5 @@
     volumes:
       - /home/{{default_user}}/traefik/traefik.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock
+    labels: 
+      "{{ DOCKER_LABELS }}"
