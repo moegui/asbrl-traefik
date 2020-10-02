@@ -20,6 +20,7 @@
     restart_policy: "unless-stopped"
     published_ports:
       - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
       - "0.0.0.0:8080:8080"
     volumes:
       - /home/{{default_user}}/traefik/traefik.yml:/etc/traefik/traefik.yml
