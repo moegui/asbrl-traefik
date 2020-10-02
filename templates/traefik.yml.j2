@@ -1,0 +1,31 @@
+## traefik.yml
+
+defaultEntryPoints:
+  - http
+  - https
+
+entryPoints:
+  http:
+    address: ':80'
+{% if REDIRECT_HTTP_TO_HTTPS %}
+    redirect:
+      entryPoint: https
+{% endif %}
+  https:
+    address: ':443'
+    #tls: {}
+
+# Docker configuration backend
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+#    network: "" # Custom docker network
+    exposedByDefault: {{DOCKER_EXPOSED_BY_DEFAULT}} # Only expose explicitly enabled containers 
+
+# API and dashboard configuration
+api:
+  dashboard: {{DASHBOARD_ENABLED}}
+  insecure: {{API_INSECURE}}
+
+log:
+  level: {{LOG_LEVEL}}

@@ -1,0 +1,29 @@
+---
+- name: Create Traefik directory
+  file:
+    path: /home/{{default_user}}/traefik/
+    state: directory  
+
+- name: Traefik config file
+  template:
+    src: traefik.yml.j2
+    dest: /home/{{default_user}}/traefik/traefik.yml   
+
+- name: Traefik
+  docker_container:
+    name: "traefik"
+    image: "{{ IMAGE }}:{{ BUILD }}"
+    pull: "true"
+    recreate: "yes"
+    #env:
+    state: "started"
+    restart_policy: "unless-stopped"
+    published_ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+      - "0.0.0.0:8080:8080"
+    volumes:
+      - /home/{{default_user}}/traefik/traefik.yml:/etc/traefik/traefik.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels: 
+      "{{ DOCKER_LABELS }}"
