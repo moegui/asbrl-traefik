@@ -21,6 +21,11 @@ Role Variables
 - DASHBOARD_ENABLED: true
 - LOG_LEVEL: INFO
 - REDIRECT_HTTP_TO_HTTPS: false
+- CONTAINER_NAME: "traefik"
+- DOCKER_CPU_PERIOD: 0
+- DOCKER_CPU_QUOTA: 0
+- DOCKER_MEMORY: 0
+- CONTAINER_STATE: 'started'
 
 Dependencies
 ------------
@@ -34,7 +39,6 @@ Example Playbook
         include_role:
           name: asbrl-traefik
         vars:
-          API_INSECURE: true
           LOG_LEVEL: DEBUG
         tags:
           - traefik
