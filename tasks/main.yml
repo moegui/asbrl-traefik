@@ -1,13 +1,15 @@
 ---
 - name: Create Traefik directory
   file:
-    path: /home/{{default_user}}/{{ CONTAINER_NAME }}/
-    state: directory  
+    path: /home/{{ default_user }}/{{ CONTAINER_NAME }}/
+    state: directory
+    mode: 0644
 
 - name: Traefik config file
   template:
     src: traefik.yml.j2
-    dest: /home/{{default_user}}/{{ CONTAINER_NAME }}/traefik.yml   
+    dest: /home/{{ default_user }}/{{ CONTAINER_NAME }}/traefik.yml
+    mode: 0644
 
 - name: Traefik
   docker_container:
@@ -25,7 +27,7 @@
       - "0.0.0.0:443:443"
       - "0.0.0.0:8080:8080"
     volumes:
-      - /home/{{default_user}}/{{ CONTAINER_NAME }}/traefik.yml:/etc/traefik/traefik.yml
+      - /home/{{ default_user }}/{{ CONTAINER_NAME }}/traefik.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock
-    labels: 
+    labels:
       "{{ DOCKER_LABELS }}"
